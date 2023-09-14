@@ -1,0 +1,6 @@
+Hi there
+I've just started learning
+I barely have an idea what I am doing
+Git is hard
+Shell is complicated
+Bye!
