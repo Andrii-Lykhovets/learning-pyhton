@@ -1,48 +1,15 @@
-greeting = ("Hello, ")
-name = "Andrew"
-print(greeting + name)
+from admin_page import load_admin_page
+from news_page import load_news_page
+from subscribe_page import load_subscribe_page
 
-number1 = 10
-number2 = 5
-number3 = number1 + number2
-number4 = number1 - number2
-number5 = number1 * number2
-number6 = number1 / number2
-number7 = number1 ** number2
-number8 = number1 // number2
-number9 = number1 % number2
-print(number3)
-print(number4)
-print(number5)
-print(number6)
-print(number7)
-print(number8)
-print(number9)
-
-value = input("Enter your number:")
-print(type(value))
-value = int(value)
-print(type(value))
-number10 = input("Enter your number:")
-print(type(number10))
-number10 = int(number10)
-print(type(number10))
-print(value + number10)
-print(value - number10)
-print(value * number10)
-print(value / number10)
-print(value ** number10)
-print(value // number10)
-print(value % number10)
-
-value1 = input("What's your name?")
-value2 = input("What year were you born?")
-print(type(value2))
-value2 = int(value2)
-print(type(value2))
-print(2023 - value2)
-print("Your name: {Andrew}, your age: {24}")
-
-
-
+if __name__ == '__main__':
+    page_choice = input('Please choose the page to load (admin, news, subscribe):')
+    if page_choice == 'admin':
+        load_admin_page()
+    elif page_choice == 'subscribe':
+        load_subscribe_page()
+    elif page_choice == 'news':
+        load_news_page()
+    else:
+        print('Page ' + page_choice + ' not found')
 
