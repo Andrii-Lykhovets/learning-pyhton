@@ -4,13 +4,21 @@ def good_flat_price(
     """
     The function compares 2 options and calculates their budget.
     """
+    deal1 = rental1 + daily_transport1*30
+    deal2 = rental2 + daily_transport2*30
+    if deal1 < deal2:
+        print('The first flat is a better deal.')
+    elif deal2 < deal1:
+        print('The second flat is a better deal.')
+    else:
+        print('Both flats have the same cost.')
 
 
 good_flat_price(1700, 15, 1500, 17)
 # Prints: "The second flat is a better deal"
 
-good_flat_price(2023, 0, 1500, 17)
+good_flat_price(1500, 17, 1700, 15)
 # Prints: "The first flat is a better deal"
 
-good_flat_price(2023, 0, 1000, 33)
+good_flat_price(1000, 33, 1000, 33)
 # Prints: "Both flats have the same cost"
