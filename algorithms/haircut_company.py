@@ -21,15 +21,15 @@ def service_confirmation(services):
 
 def haircut_tutorial():
     haircut_type = input('How would you like to cut your hair? Long or short:')
-    if input == 'short':
+    if haircut_type == 'short':
         print('1. Shorten the hair on the sides.')
         print('2. Spray the upper hair with water and cut it with scissors and comb.')
         print('3. Wash the head and style the hair.')
-    if input == 'long':
+    if haircut_type == 'long':
         print('1. Brush the hair and spray it with water.')
         print('2. Thoroughly cut the ends of hair.')
         print('3. Dry the hair and style it.')
-    return haircut_type
+    return haircut_type + ' haircut'
 
 
 def coloring_tutorial():
@@ -76,14 +76,15 @@ def giving_chosen_service(chosen_service):
     elif chosen_service == 'hair coloring':
         return coloring_tutorial()
     elif chosen_service == 'manicure':
-        return manicure_tutorial()
+        return manicure_tutorial(nails_length='long', polish_color='white')
+    elif chosen_service == 'head massage':
+        print('Giving head massage.')
+        return chosen_service
     else:
-        print('Giving you a nice ' + chosen_service)
-        exit()
+        print('Sorry we don\'t provide such service as ' + chosen_service)
 
 
-select_salon_services()
-ordering_a_service = select_salon_services()
-service_confirmation(ordering_a_service)
-results = giving_service(ordering_a_service)
+ordered_services = select_salon_services()
+service_confirmation(ordered_services)
+results = giving_service(ordered_services)
 print('Here is your order ' + str(results))
