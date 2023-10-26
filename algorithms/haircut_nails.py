@@ -55,6 +55,18 @@ def coloring_tutorial():
 
 
 def manicure_tutorial(nails_length, polish_color):
+    print('How would you like your nails: long/short and what color?' 
+          'Type stop to finish an order:')
+    choosing_nails = True
+    services = list()
+    while choosing_nails:
+        chosen_service = input()
+        if chosen_service == 'stop':
+            choosing_nails = False
+        else:
+            services.append(chosen_service)
+    return services
+
     print('1. Cut the nails' + nails_length + '.')
     print('2. Cover them with' + polish_color + ' polish.')
     if nails_length == 'short':
