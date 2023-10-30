@@ -54,25 +54,14 @@ def coloring_tutorial():
     return hair_color
 
 
-def manicure_tutorial(nails_length, polish_color):
-    print('How would you like your nails: long/short and what color?' 
-          'Type stop to finish an order:')
-    choosing_nails = True
-    services = list()
-    while choosing_nails:
-        chosen_service = input()
-        if chosen_service == 'stop':
-            choosing_nails = False
-        else:
-            services.append(chosen_service)
-    return services
-
-    print('1. Cut the nails' + nails_length + '.')
-    print('2. Cover them with' + polish_color + ' polish.')
-    if nails_length == 'short':
-        return str(nails_length) + ' ' + str(polish_color) + ' manicure.'
-    if nails_length == 'long':
-        return str(nails_length) + ' ' + str(polish_color) + ' manicure.'
+def manicure_tutorial():
+    print('How would you like your nails: long or short?')
+    nails_length = input()
+    print('What color would you like your nails to be?')
+    polish_color = input()
+    print('1. Cut the nails ' + nails_length + '.')
+    print('2. Cover them with ' + polish_color + ' polish.')
+    return str(nails_length) + ' ' + str(polish_color) + ' manicure.'
 
 
 def giving_service(service_list):
@@ -88,7 +77,7 @@ def giving_chosen_service(chosen_service):
     elif chosen_service == 'hair coloring':
         return coloring_tutorial()
     elif chosen_service == 'manicure':
-        return manicure_tutorial(nails_length='long', polish_color='white')
+        return manicure_tutorial()
     elif chosen_service == 'head massage':
         print('Giving head massage.')
         return chosen_service
