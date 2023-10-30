@@ -1,29 +1,43 @@
-from deep_dive.caffe_functions import boil_eggs
+from deep_dive.caffe_functions import boil_eggs, cook_an_order, sandwich_recipe
 
 
-def check_equal(actual_result, expected_result):
-    if actual_result == expected_result:
-        print('passed, ' + expected_result)
-    else:
-        print('failed, expected "' + expected_result + '", but received "' + actual_result + '"')
+def test_one_hard_egg():
+    actual = boil_eggs(yolk_state='hard', eggs_quantity='1')
+    expected = '1 hard egg(s)'
+    assert actual == expected, 'should boil "1 hard egg"'
 
 
-test1 = boil_eggs(yolk_state='hard', eggs_quantity='1')
-expected1 = '1 hard egg(s)'
-check_equal(test1, expected1)
+def test_4_soft_eggs():
+    actual = boil_eggs(yolk_state='soft', eggs_quantity='4')
+    expected = '4 soft egg(s)'
+    assert actual == expected
 
-test2 = boil_eggs(yolk_state='soft', eggs_quantity='4')
-expected2 = '4 soft egg(s)'
-check_equal(test2, expected2)
 
-test3 = boil_eggs(yolk_state='liquid', eggs_quantity='4')
-expected3 = '4 liquid egg(s)'
-check_equal(test3, expected3)
+def test_4_liquid_eggs():
+    actual = boil_eggs(yolk_state='liquid', eggs_quantity='4')
+    expected = '4 liquid egg(s)'
+    assert actual == expected
 
-test4 = boil_eggs(yolk_state='liquid', eggs_quantity='-2')
-expected4 = 'error, eggs quantity should be a positive number'
-check_equal(test4, expected4)
 
-test5 = boil_eggs(yolk_state='liquid', eggs_quantity='0')
-expected5 = '0 liquid egg(s)'
-check_equal(test5, expected5)
+def test_negative_quantity():
+    actual = boil_eggs(yolk_state='liquid', eggs_quantity='-2')
+    expected = 'error, eggs quantity should be a positive number'
+    assert actual == expected
+
+
+def test_zero_eggs():
+    actual = boil_eggs(yolk_state='liquid', eggs_quantity='0')
+    expected = '0 liquid egg(s)'
+    assert actual == expected
+
+
+def test_cooking_function():
+    actual = cook_an_order('boiled egg')
+    expected = '3 hard egg(s)'
+    assert actual == expected
+
+
+def test_sandwich_function():
+    actual = sandwich_recipe(amount_of_sandwiches='2', stuffing='tuna', pickles_quantity='4')
+    expected = '2 sandwich(es) with tuna and 4 pickles'
+    assert actual == expected

@@ -10,3 +10,4 @@ def only_first_letters_are_capitalized(text):
         capitalized_list.append(word.capitalize())
     result = ' '.join(capitalized_list)
     print(result)
+    return result
