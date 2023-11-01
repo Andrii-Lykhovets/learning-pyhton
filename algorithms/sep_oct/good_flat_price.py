@@ -7,11 +7,13 @@ def good_flat_price(
     deal1 = rental1 + daily_transport1*30
     deal2 = rental2 + daily_transport2*30
     if deal1 < deal2:
-        print('The first flat is a better deal.')
+        result = 'The first flat is a better deal.'
     elif deal2 < deal1:
-        print('The second flat is a better deal.')
+        result = 'The second flat is a better deal.'
     else:
-        print('Both flats have the same cost.')
+        result = 'Both flats have the same cost.'
+    print(result)
+    return result
 
 
 good_flat_price(1700, 15, 1500, 17)
