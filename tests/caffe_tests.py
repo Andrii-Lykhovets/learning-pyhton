@@ -1,4 +1,4 @@
-from deep_dive.caffe_functions import boil_eggs, cook_an_order, sandwich_recipe
+from algorithms.sep_oct.caffe_functions import boil_eggs, cook_an_order, sandwich_recipe
 
 
 def test_one_hard_egg():

@@ -1,4 +1,4 @@
-from deep_dive.caffe_functions import make_orders, confirm_orders, cook_orders, prepare_the_bill
+from algorithms.sep_oct.caffe_functions import make_orders, confirm_orders, cook_orders, prepare_the_bill
 
 
 print('Welcome to the caffe!')
