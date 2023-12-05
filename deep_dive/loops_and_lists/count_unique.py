@@ -1,13 +1,12 @@
 def analyse_transport(list_of_records):
     all_transport_records = []
-    unique_transport_records = []
+    unique_transport_records = set()
     known_transport_records = ['car', 'bus', 'train', 'plane', 'bicycle']
 
     for record in list_of_records:
         if record in known_transport_records:
             all_transport_records.append(record)
-            if record not in unique_transport_records:
-                unique_transport_records.append(record)
+            unique_transport_records.add(record)
 
     print('All transport:')
     print(all_transport_records)
