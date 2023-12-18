@@ -5,6 +5,19 @@ def list_numbers_as_text(start, stop):
     But for this function we need to get number 3 in the end.
     Thus, we can always give a range function incremented stop argument
     """
+    definitions = {
+        0: 'zero',
+        1: 'one',
+        2: 'two',
+        3: 'three',
+        4: 'four',
+        5: 'five',
+        6: 'six',
+        7: 'seven',
+        8: 'eight',
+        9: 'nine',
+    }
+
     if start < 0 or start > 9:
         return 'start parameter is out of range(0, 9)'
     if stop > 9:
@@ -14,26 +27,8 @@ def list_numbers_as_text(start, stop):
     text_numbers = list()
     range_stop = stop + 1
     for number in range(start, range_stop):
-        text_number = number_to_word(number)
-        text_numbers.append(text_number)
+        text_numbers.append(definitions.get(number))  # or definitions[number]
     return text_numbers
-
-
-def number_to_word(number):
-    definitions = [
-        {'number': 0, 'word': 'zero'},
-        {'number': 1, 'word': 'one'},
-        {'number': 2, 'word': 'two'},
-        {'number': 3, 'word': 'three'},
-        {'number': 4, 'word': 'four'},
-        {'number': 5, 'word': 'five'},
-        {'number': 6, 'word': 'six'},
-        {'number': 7, 'word': 'seven'},
-        {'number': 8, 'word': 'eight'},
-        {'number': 9, 'word': 'nine'},
-    ]
-    if number in definitions == ['number']:
-        return ['word']
 
 
 def test_a_single_number():
