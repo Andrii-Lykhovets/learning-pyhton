@@ -22,19 +22,14 @@ def analyze_feedbacks(list_of_products):
     print(f'Unique products({len(unique_product_records)}):')
     print(unique_product_records)
     print(f'Non apple products: {len(list_of_products) - len(all_product_records)}')
-    ios_subscription_count = 0
-    iphone_count = 0
-    apple_news_count = 0
+    mentions = dict()
     for item in all_product_records:
-        if item == 'ios subscription':
-            ios_subscription_count = ios_subscription_count + 1
-        elif item == 'iPhone':
-            iphone_count = iphone_count + 1
-        elif item == 'apple news':
-            apple_news_count = apple_news_count + 1
-    print('ios subscription occurrence: ', ios_subscription_count)
-    print('iPhone: ', iphone_count)
-    print('apple news: ', apple_news_count)
+        if item in known_product_records:
+            mentions[item] = mentions.get(item, 0) + 1
+
+    print('ios subscription occurrence: ', mentions['ios subscription'])
+    print('iPhone: ', mentions['iPhone'])
+    print('apple news: ', mentions['apple news'])
 
 
 feedbacks = [

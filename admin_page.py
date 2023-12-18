@@ -1,11 +1,11 @@
 def load_admin_page():
     print("please enter your login and password")
     credentials = [
-        ("user_andrew", "qwe123"),
-        ("user_kevin", "asd456"),
-        ("user_julia", "zxc789"),
-        ("user_alex", "poi098"),
-        ("user_helen", "lkj765"),
+        {'login': 'user_andrew', 'pass': 'qwe123'},
+        {'login': 'user_kevin', 'pass': 'asd456'},
+        {'login': 'user_julia', 'pass': 'zxc789'},
+        {'login': 'user_alex', 'pass': 'poi098'},
+        {'login': 'user_helen', 'pass': 'lkj765'},
     ]
 
     login = input("Enter your login:")
@@ -16,8 +16,8 @@ def load_admin_page():
         return login == log and password == pas
 
     correct_login = False
-    for cre_login, cre_password in credentials:
-        if login_password_check(cre_login, cre_password):
+    for user in credentials:
+        if login_password_check(user['login'], user['pass']):
             correct_login = True
 
     if correct_login:
