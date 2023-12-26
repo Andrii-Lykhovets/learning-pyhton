@@ -22,3 +22,4 @@ The users can log in the account by providing their personal data, subscribe to 
 We also intend to write pages for:
 * creating the account in the blog
 * personal account
+# news-blog
