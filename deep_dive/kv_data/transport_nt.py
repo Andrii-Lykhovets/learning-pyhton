@@ -1,12 +1,5 @@
 from collections import namedtuple
 
-Parking_Space = namedtuple('Parking_Space', 'type')
-park_area = Parking_Space('park area')
-car_parking = Parking_Space('car parking')
-street_parking = Parking_Space('street parking')
-airport_hangar = Parking_Space('airport hangar')
-seaport = Parking_Space('seaport')
-
 TravelEstimate = namedtuple("TravelEstimate", "brand model time")
 
 
@@ -37,44 +30,50 @@ def can_park_transport(parking_space, vehicle):
    The task of this function is to answer whether I can park this vehicle in this parking_space?
    And return True/False
     """
-    if vehicle.type == 'car' and parking_space == 'car parking':
-        return True
-    if vehicle.type == 'bicycle' in vehicle and parking_space.type == 'park area' in parking_space:
-        return True
-    if vehicle.type == 'motorcycle' in vehicle and parking_space.type == 'street parking' in parking_space:
-        return True
-    if vehicle.type == 'boat' in vehicle and parking_space.type == 'seaport' in parking_space:
-        return True
-    if vehicle.type == 'airplane' in vehicle and parking_space.type == 'airport hangar' in parking_space:
-        return True
-    else:
-        return False
-
-
-Terrain = namedtuple('Terrain', 'grass water pavement asphalt_road ocean mountain')
+    return ((vehicle.type == 'car' and parking_space in ['car parking'])
+            or (vehicle.type == 'bicycle' and parking_space in ['park area', 'car parking', 'street parking'])
+            or (vehicle.type == 'motorcycle' and parking_space in ['park area', 'car parking', 'street parking'])
+            or (vehicle.type == 'boat' and parking_space in ['seaport'])
+            or (vehicle.type == 'airplane' and parking_space in ['airport hangar'])
+            or (vehicle.type == 'e_scooter' and parking_space in ['park area', 'car parking', 'street parking'])
+            or (vehicle.type == 'helicopter' and parking_space in ['park area', 'airport hangar']))
 
 
 def can_cross(terrain, vehicle):
-    while terrain[3]:
-        if vehicle.type[2]:
-            return True
-        else:
-            return False
-
-
-PrintName = namedtuple('PrintName', 'brand model')
+    return ((vehicle.type == 'car' and terrain in ['grass', 'asphalt road'])
+            or (vehicle.type == 'bicycle' and terrain in ['grass', 'pavement', 'asphalt road'])
+            or (vehicle.type == 'motorcycle' and terrain in ['grass', 'asphalt road'])
+            or (vehicle.type == 'boat' and terrain in ['ocean'])
+            or (vehicle.type == 'airplane' and terrain in ['ocean', 'mountain'])
+            or (vehicle.type == 'e_scooter' and terrain in ['pavement', 'asphalt road'])
+            or (vehicle.type == 'helicopter' and terrain in ['ocean', 'mountain']))
 
 
 def print_name(vehicle):
     """
     Prints and returns 'brand model' string
     """
-    names = []
-    for vhc in vehicle:
-        name_pair = f'{vhc.brand} + {vhc.model}'
-        names.append(PrintName(name_pair))
-    # return names
+    names = f'{vehicle.brand.upper()} {vehicle.model.capitalize()}'
     print(names)
+    return names
 
 
-print_name(vehicle=Vehicle)
+def tire_pressure_maintenance_price(vehicle):
+    """
+    Return maintenance price, assuming that it takes $2 per wheel to maintain tire pressure.
+    Bicycle maintenance price is $0.5 per wheel. Airplane maintenance price is $50.
+    :param vehicle:
+    :return: maintenance price:
+    """
+    if vehicle.type == 'car':
+        maintenance_price = vehicle.wheels * 2
+        return maintenance_price
+    elif vehicle.type in ['bicycle', 'e_scooter']:
+        maintenance_price = vehicle.wheels * 0.5
+        return maintenance_price
+    elif vehicle.type == 'airplane':
+        maintenance_price = vehicle.wheels * 50
+        return maintenance_price
+    else:
+        error = 'A vehicle must have wheels to calculate maintenance'
+        return error
