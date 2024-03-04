@@ -2,7 +2,8 @@ from collections import namedtuple
 
 import pytest
 
-from deep_dive.kv_data.transport_nt import time_to_travel, can_park_transport, can_cross, print_name, tire_pressure_maintenance_price
+from deep_dive.kv_data.transport_nt import (time_to_travel, can_park_transport, can_cross, print_name,
+                                            tire_pressure_maintenance_price, get_slowest_median_fastest)
 
 # мы создали namedtuple чтоб присудить каждому элементу field_names значения.
 # namedtuple требует конкретное количество значений, потому что он immutable.
@@ -55,6 +56,75 @@ def test_car_parking(vehicle, expected):
     assert can_park == expected
 
 
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, False),
+    (ford, False),
+    (brompton, False),
+    (bmw, False),
+    (boesch, True),
+    (honda_jet, False),
+    (xiaomi, False),
+    (eurocopter, False),
+    (panamera, False),
+    (model_s, False),
+])
+def test_can_park_transport_function(vehicle, expected):
+    can_park = can_park_transport(parking_space='seaport', vehicle=vehicle)
+    assert can_park == expected
+
+
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, False),
+    (ford, False),
+    (brompton, True),
+    (bmw, True),
+    (boesch, False),
+    (honda_jet, False),
+    (xiaomi, True),
+    (eurocopter, False),
+    (panamera, False),
+    (model_s, False),
+])
+def test_can_park_transport_function(vehicle, expected):
+    can_park = can_park_transport(parking_space='street parking', vehicle=vehicle)
+    assert can_park == expected
+
+
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, False),
+    (ford, False),
+    (brompton, False),
+    (bmw, False),
+    (boesch, False),
+    (honda_jet, True),
+    (xiaomi, False),
+    (eurocopter, True),
+    (panamera, False),
+    (model_s, False),
+])
+def test_can_park_transport_function(vehicle, expected):
+    can_park = can_park_transport(parking_space='airport hangar', vehicle=vehicle)
+    assert can_park == expected
+
+
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, False),
+    (ford, False),
+    (brompton, True),
+    (bmw, True),
+    (boesch, False),
+    (honda_jet, False),
+    (xiaomi, True),
+    (eurocopter, True),
+    (panamera, False),
+    (model_s, False),
+])
+def test_can_park_transport_function(vehicle, expected):
+    can_park = can_park_transport(parking_space='park area', vehicle=vehicle)
+    assert can_park == expected
+
+
+# u can delete it but not yet
 @pytest.mark.parametrize('parking_space,vehicle,expected', [
     ('seaport', panamera, False),
     ('seaport', brompton, False),
@@ -75,6 +145,91 @@ def test_can_park_transport_function(parking_space, vehicle, expected):
 
 
 # tests for can_cross function:
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, True),
+    (ford, True),
+    (brompton, True),
+    (bmw, True),
+    (boesch, False),
+    (honda_jet, False),
+    (xiaomi, True),
+    (eurocopter, False),
+    (panamera, True),
+    (model_s, True),
+])
+def test_can_cross_function(vehicle, expected):
+    crosses = can_cross(terrain='asphalt road', vehicle=vehicle)
+    assert crosses == expected
+
+
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, True),
+    (ford, True),
+    (brompton, True),
+    (bmw, True),
+    (boesch, False),
+    (honda_jet, False),
+    (xiaomi, False),
+    (eurocopter, False),
+    (panamera, True),
+    (model_s, True),
+])
+def test_can_cross_function(vehicle, expected):
+    crosses = can_cross(terrain='grass', vehicle=vehicle)
+    assert crosses == expected
+
+
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, False),
+    (ford, False),
+    (brompton, True),
+    (bmw, False),
+    (boesch, False),
+    (honda_jet, False),
+    (xiaomi, True),
+    (eurocopter, False),
+    (panamera, False),
+    (model_s, False),
+])
+def test_can_cross_function(vehicle, expected):
+    crosses = can_cross(terrain='pavement', vehicle=vehicle)
+    assert crosses == expected
+
+
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, False),
+    (ford, False),
+    (brompton, False),
+    (bmw, False),
+    (boesch, True),
+    (honda_jet, True),
+    (xiaomi, False),
+    (eurocopter, True),
+    (panamera, False),
+    (model_s, False),
+])
+def test_can_cross_function(vehicle, expected):
+    crosses = can_cross(terrain='ocean', vehicle=vehicle)
+    assert crosses == expected
+
+
+@pytest.mark.parametrize('vehicle,expected', [
+    (bugatti, False),
+    (ford, False),
+    (brompton, False),
+    (bmw, False),
+    (boesch, False),
+    (honda_jet, True),
+    (xiaomi, False),
+    (eurocopter, True),
+    (panamera, False),
+    (model_s, False),
+])
+def test_can_cross_function(vehicle, expected):
+    crosses = can_cross(terrain='mountain', vehicle=vehicle)
+    assert crosses == expected
+
+
 def test_car_vs_asphalt():
     crosses = can_cross(terrain='asphalt road', vehicle=ford)
     assert crosses
@@ -157,7 +312,7 @@ def test_helicopter_vs_grass():
 
 # tests for print_name function
 def test_print_name_honda_jet():
-   assert print_name(honda_jet) == 'HONDAJET Echelon'
+    assert print_name(honda_jet) == 'HONDAJET Echelon'
 
 
 def test_print_bugatti():
@@ -263,3 +418,20 @@ def test_parameters(letter):
 ])
 def test_multiple_parameters(first, second, third):
     print(f'1: {first}, 2: {second}, 3: {third}')
+
+
+# Tests for get_slowest_median_fastest Function:
+vehicles = [
+    Vehicle('Toyota', 'Corolla', 'Sedan', 4, 140, 70),
+    Vehicle('Honda', 'Civic', 'Hatchback', 4, 130, 1000),
+    Vehicle('Ford', 'Fiesta', 'Compact', 4, 120, 60)
+]
+
+
+def test_get_slowest_median_fastest():
+    actual = get_slowest_median_fastest(vehicles=vehicles)
+    expected = Vehicle(brand='Ford', model='Fiesta', type='Compact', wheels=4, power=120, speed=60)
+            Vehicle(brand='Toyota', model='Corolla', type='Sedan', wheels=4, power=140, speed=70)
+            Vehicle(brand='Honda', model='Civic', type='Hatchback', wheels=4, power=130, speed=1000)
+
+    assert actual == expected

@@ -77,3 +77,53 @@ def tire_pressure_maintenance_price(vehicle):
     else:
         error = 'A vehicle must have wheels to calculate maintenance'
         return error
+
+
+# Define a named tuple for Vehicle
+Vehicle = namedtuple('Vehicle', ['brand', 'model', 'type', 'wheels', 'power', 'speed'])
+
+
+def get_slowest_median_fastest(vehicles):
+    # Sort the list of vehicles based on speed
+    sorted_vehicles = sorted(vehicles, key=lambda x: x.speed)
+
+    # Calculate the median index
+    n = len(sorted_vehicles)
+    median_index = n // 2
+
+    # Get the median speed
+    if n % 2 == 0:
+        median_speed = (sorted_vehicles[median_index - 1].speed + sorted_vehicles[median_index].speed) / 2
+    else:
+        median_speed = sorted_vehicles[median_index].speed
+
+    # Retrieve the slowest, median, and fastest vehicles
+    slowest = sorted_vehicles[0]
+    median = None
+    fastest = sorted_vehicles[-1]
+
+    for vehicle in sorted_vehicles:
+        if vehicle.speed == median_speed:
+            median = vehicle
+            break
+
+    # Return the list of named tuples
+    return [slowest, median, fastest] if median else [slowest, fastest]
+
+# Example usage:
+vehicles = [
+    Vehicle('Toyota', 'Corolla', 'Sedan', 4, 140, 70),
+    Vehicle('Honda', 'Civic', 'Hatchback', 4, 130, 1000),
+    Vehicle('Ford', 'Fiesta', 'Compact', 4, 120, 60)
+]
+transport = [bugatti, ford, brompton, bmw, boesch, honda_jet, xiaomi, eurocopter, panamera, model_s]
+
+result = get_slowest_median_fastest(vehicles)
+for vehicle in result:
+    print(vehicle)
+
+print('B R E A K   P O I N T ')
+
+results = get_slowest_median_fastest(transport)
+for vehicle in results:
+    print(vehicle)
