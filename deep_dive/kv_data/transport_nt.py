@@ -30,13 +30,16 @@ def can_park_transport(parking_space, vehicle):
    The task of this function is to answer whether I can park this vehicle in this parking_space?
    And return True/False
     """
-    return ((vehicle.type == 'car' and parking_space in ['car parking'])
+    return ((vehicle.type == 'car' and parking_space in ['car parking', 'garage'])
             or (vehicle.type == 'bicycle' and parking_space in ['park area', 'car parking', 'street parking'])
-            or (vehicle.type == 'motorcycle' and parking_space in ['park area', 'car parking', 'street parking'])
+            or (vehicle.type == 'motorcycle' and parking_space in ['park area', 'car parking', 'street parking', 'garage'])
             or (vehicle.type == 'boat' and parking_space in ['seaport'])
             or (vehicle.type == 'airplane' and parking_space in ['airport hangar'])
             or (vehicle.type == 'e_scooter' and parking_space in ['park area', 'car parking', 'street parking'])
-            or (vehicle.type == 'helicopter' and parking_space in ['park area', 'airport hangar']))
+            or (vehicle.type == 'helicopter' and parking_space in ['park area', 'airport hangar'])
+            or (vehicle.type == 'quad_bike' and parking_space in ['garage'])
+            or (vehicle.type == 'skis' and parking_space in ['garage'])
+            or (vehicle.type == 'snowmobile' and parking_space in ['garage']))
 
 
 def can_cross(terrain, vehicle):
@@ -46,7 +49,10 @@ def can_cross(terrain, vehicle):
             or (vehicle.type == 'boat' and terrain in ['ocean'])
             or (vehicle.type == 'airplane' and terrain in ['ocean', 'mountain'])
             or (vehicle.type == 'e_scooter' and terrain in ['pavement', 'asphalt road'])
-            or (vehicle.type == 'helicopter' and terrain in ['ocean', 'mountain']))
+            or (vehicle.type == 'helicopter' and terrain in ['ocean', 'mountain'])
+            or (vehicle.type == 'quad_bike' and terrain in ['mountain', 'asphalt road', 'grass'])
+            or (vehicle.type == 'skis' and terrain in ['mountain'])
+            or (vehicle.type == 'snowmobile' and terrain in ['mountain']))
 
 
 def print_name(vehicle):
@@ -68,10 +74,13 @@ def tire_pressure_maintenance_price(vehicle):
     if vehicle.type == 'car':
         maintenance_price = vehicle.wheels * 2
         return maintenance_price
-    elif vehicle.type in ['bicycle', 'e_scooter']:
+    elif vehicle.type in ['bicycle', 'e_scooter', 'motorcycle', 'quad_bike']:
         maintenance_price = vehicle.wheels * 0.5
         return maintenance_price
     elif vehicle.type == 'airplane':
+        maintenance_price = vehicle.wheels * 50
+        return maintenance_price
+    elif vehicle.type == 'helicopter' and vehicle.wheels > 0:
         maintenance_price = vehicle.wheels * 50
         return maintenance_price
     else:
@@ -88,27 +97,23 @@ def get_slowest_median_fastest(vehicles):
     sorted_vehicles = sorted(vehicles, key=lambda x: x.speed)
 
     # Calculate the median index
-    n = len(sorted_vehicles)
-    median_index = n // 2
+    median = len(sorted_vehicles)
+    median_index = median // 2
 
     # Get the median speed
-    if n % 2 == 0:
-        median_speed = (sorted_vehicles[median_index - 1].speed + sorted_vehicles[median_index].speed) / 2
+    if median % 2 == 0:
+        # median_vehicle = (sorted_vehicles[median_index - 1] + sorted_vehicles[median_index]) / 2
+        median_vehicle = None # these 2 lines are wrong - need to rethink (там 105 удали и решение на экране)
     else:
-        median_speed = sorted_vehicles[median_index].speed
+        median_vehicle = sorted_vehicles[median_index]
 
     # Retrieve the slowest, median, and fastest vehicles
     slowest = sorted_vehicles[0]
-    median = None
+    median = median_vehicle
     fastest = sorted_vehicles[-1]
 
-    for vehicle in sorted_vehicles:
-        if vehicle.speed == median_speed:
-            median = vehicle
-            break
-
     # Return the list of named tuples
-    return [slowest, median, fastest] if median else [slowest, fastest]
+    return [slowest, median, fastest]
 
 # Example usage:
 vehicles = [
@@ -116,14 +121,18 @@ vehicles = [
     Vehicle('Honda', 'Civic', 'Hatchback', 4, 130, 1000),
     Vehicle('Ford', 'Fiesta', 'Compact', 4, 120, 60)
 ]
-transport = [bugatti, ford, brompton, bmw, boesch, honda_jet, xiaomi, eurocopter, panamera, model_s]
+
+vehicles1 = [
+    Vehicle('Ford', 'Fiesta', 'Compact', 4, 120, 60),
+    Vehicle('Toyota', 'Corolla', 'Sedan', 4, 140, 70),
+    Vehicle('Porche', 'Panamera', 'car', 4, 348, 315),
+    Vehicle('Honda', 'Civic', 'Hatchback', 4, 130, 1000),
+]
 
 result = get_slowest_median_fastest(vehicles)
 for vehicle in result:
     print(vehicle)
 
-print('B R E A K   P O I N T ')
-
-results = get_slowest_median_fastest(transport)
+results = get_slowest_median_fastest(vehicles1)
 for vehicle in results:
     print(vehicle)
