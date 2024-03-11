@@ -17,3 +17,5 @@ print('all capital: ' + song.upper())
 print('all lower case: ' + song.lower())
 print('Capital: ' + 'hi'.capitalize())
 
+bitch = 'bitch'
+print(bitch.capitalize())

@@ -5,8 +5,6 @@
 # 5. What are the top 3 least popular products?*
 # 6. Given list (300):
 
-from collections import Counter
-
 
 def print_filter_results(all_product_records, unique_product_records, list_of_products):
     print(f'All products({len(all_product_records)}):')
@@ -31,21 +29,25 @@ def filter_known_products(list_of_products):
     return all_product_records
 
 
-def count_product_mentions(all_product_records):  # оце зробить counter
-    mentions = Counter(all_product_records)
-    print(f'mentions of Apple products: {mentions}')
+def count_product_mentions(all_product_records):
+    mentions = dict()
+    for item in all_product_records:
+        mentions[item] = mentions.get(item, 0) + 1
+
+    print(f'mentions: {mentions}')
     return mentions
 
 
-def find_most_popular_products(mentions, top_count=3):  # оце зробить counter, mentions will become a Counter
-    most_popular = mentions.most_common(top_count)
+def find_most_popular_products(mentions, top_count=3):
+    most_popular = dict(sorted(mentions.items(), key=lambda item: item[1], reverse=True)[0:top_count])  # а можно [0:-2]
     print(f'most popular products: {most_popular}')
+    return most_popular
 
 
-def find_least_popular_products(mentions, min_count=3):  # оце зробить counter, mentions will become a Counter
-    reversed_common = mentions.most_common()
-    reversed_common.reverse()
-    print(f'least popular products: {reversed_common[0:min_count]}')
+def find_least_popular_products(mentions, min_count=3):
+    least_popular = dict(sorted(mentions.items(), key=lambda item: item[1])[0:min_count])
+    print(f'least popular products: {least_popular}')
+    return least_popular
 
 
 def analyze_feedbacks(list_of_products):
@@ -56,7 +58,8 @@ def analyze_feedbacks(list_of_products):
 
 
 feedbacks = [
-    'apple music', 'ios subscription', 'Fish and chips', 'trololo', 'Fish and chips', 'Fish and chips', 'iPhone', 'Big Mac', 'iPhone',
+    'apple music', 'ios subscription', 'Fish and chips', 'trololo', 'Fish and chips', 'Fish and chips', 'iPhone',
+    'Big Mac', 'iPhone',
     'ios subscription', 'Fish and chips', 'apple news', 'Fish and chips', 'Fish and chips', 'air pod',
     'ios subscription', 'Fish and chips', 'Fish and chips', 'Fish and chips', 'ios subscription', 'Fish and chips',
     'ios subscription', 'iPhone', 'Fish and chips', 'ios subscription', 'apple music', 'Big Mac', 'ios subscription',

@@ -46,7 +46,6 @@ def print_summary_if_longer_than_5_words(text):
     print(result)
 
 
-
 print_summary_if_longer_than_5_words(text=detailed_list[0])
 print_summary_if_longer_than_5_words(text=detailed_list[1])
 print_summary_if_longer_than_5_words(text=detailed_list[2])
@@ -75,7 +74,6 @@ def print_summary_if_longer_than_5_words_v2(text):
 
 print_summary_if_longer_than_5_words_v2(text=detailed_list[9])
 print_summary_if_longer_than_5_words_v2(text='Hello, World!')
-
 
 
 def print_summary_if_longer_than_5_words_v_orange(text):
