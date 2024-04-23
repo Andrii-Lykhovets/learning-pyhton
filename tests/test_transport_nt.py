@@ -24,7 +24,8 @@ sikorsky = Vehicle('Sikorsky', 'R-4', 'helicopter', 3, None, 121)
 yamaha = Vehicle('Yamaha', 'GRIZZLY 700 EPS', 'quad_bike', 4, None, 104)
 rossignol = Vehicle('Rossignol', 'EXPERIENCE 86 TI', 'skis', 0, 0.1, 100)
 polaris = Vehicle('Polaris', '650 INDY XCR 128', 'snowmobile', 0, None, 150)
-transport = [bugatti, ford, brompton, bmw, boesch, honda_jet, xiaomi, eurocopter, panamera, model_s, sikorsky, yamaha, rossignol, polaris]
+transport = [bugatti, ford, brompton, bmw, boesch, honda_jet, xiaomi, eurocopter, panamera, model_s, sikorsky, yamaha,
+             rossignol, polaris]
 
 
 def test_result_not_empty():
@@ -279,7 +280,7 @@ def test_can_cross_function(vehicle, expected):
 @pytest.mark.parametrize('vehicle,expected', [
     (honda_jet, 'HONDAJET Echelon'),
     (bugatti, 'BUGATTI Veyron'),
-    (ford,'FORD Ks'),
+    (ford, 'FORD Ks'),
     (brompton, 'BROMPTON Line a'),
     (bmw, 'BMW R ninet'),
     (boesch, 'BOESCH 620 bimini'),
@@ -337,7 +338,7 @@ def test_multiple_parameters(first, second, third):
 vehicles = [
     Vehicle('Toyota', 'Corolla', 'Sedan', 4, 140, 70),
     Vehicle('Honda', 'Civic', 'Hatchback', 4, 130, 1000),
-    Vehicle('Ford', 'Fiesta', 'Compact', 4, 120, 60)
+    Vehicle('Ford', 'Fiesta', 'Compact', 4, 120, 60),
 ]
 
 vehicles1 = [
@@ -347,21 +348,30 @@ vehicles1 = [
     Vehicle('Honda', 'Civic', 'Hatchback', 4, 130, 1000),
 ]
 
+five_vehicles = [
+    Vehicle('Tesla', 'Model S', 'car', 4, 1000, 322),
+    Vehicle('Sikorsky', 'R-4', 'helicopter', 3, None, 121),
+    Vehicle('Yamaha', 'GRIZZLY 700 EPS', 'quad_bike', 4, None, 104),
+    Vehicle('Rossignol', 'EXPERIENCE 86 TI', 'skis', 0, 0.1, 100),
+    Vehicle('Polaris', '650 INDY XCR 128', 'snowmobile', 0, None, 150),
+]
 
-def test_get_slowest_median_fastest():
-    actual = get_slowest_median_fastest(vehicles=vehicles)
-    expected = [Vehicle(brand='Ford', model='Fiesta', type='Compact', wheels=4, power=120, speed=60),
+
+@pytest.mark.parametrize('vehicle, expected', [
+    (vehicles, [Vehicle(brand='Ford', model='Fiesta', type='Compact', wheels=4, power=120, speed=60),
                 Vehicle(brand='Toyota', model='Corolla', type='Sedan', wheels=4, power=140, speed=70),
-                Vehicle(brand='Honda', model='Civic', type='Hatchback', wheels=4, power=130, speed=1000)]
-
-    assert actual == expected
-
-
-def test_get_slowest_median_fastest1():
-    actual = get_slowest_median_fastest(vehicles=vehicles1)
-    expected = [Vehicle(brand='Ford', model='Fiesta', type='Compact', wheels=4, power=120, speed=60),
-                Vehicle(brand='Toyota', model='Corolla', type='Sedan', wheels=4, power=140, speed=70),
-                Vehicle(brand='Porche', model='Panamera', type='car', wheels=4, power=348, speed=315),
-                Vehicle(brand='Honda', model='Civic', type='Hatchback', wheels=4, power=130, speed=1000)]
-
+                Vehicle(brand='Honda', model='Civic', type='Hatchback', wheels=4, power=130, speed=1000)]),
+    (vehicles1, [Vehicle(brand='Ford', model='Fiesta', type='Compact', wheels=4, power=120, speed=60),
+                 Vehicle(brand='Porche', model='Panamera', type='car', wheels=4, power=348, speed=315),
+                 Vehicle(brand='Honda', model='Civic', type='Hatchback', wheels=4, power=130, speed=1000)]),
+    (transport, [Vehicle(brand='Xiaomi', model='Mi 1S', type='e_scooter', wheels=2, power=0.25, speed=25),
+                 Vehicle(brand='Ford', model='Ks', type='car', wheels=4, power=93, speed=155),
+                 Vehicle(brand='HondaJet', model='Echelon', type='airplane', wheels=3, power=None, speed=833)]),
+    (five_vehicles, [Vehicle(brand='Rossignol', model='EXPERIENCE 86 TI', type='skis', wheels=0, power=0.1, speed=100),
+                     Vehicle(brand='Sikorsky', model='R-4', type='helicopter', wheels=3, power=None, speed=121),
+                     Vehicle(brand='Tesla', model='Model S', type='car', wheels=4, power=1000, speed=322)])
+])
+def test_get_slowest_median_fastest(vehicle, expected):
+    actual = get_slowest_median_fastest(vehicles=vehicle)
+    expected = expected
     assert actual == expected
