@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The Form</title>
+</head>
+<body>
+    <form action="form_complete.html">
+        <label for="the_name">Your name</label>
+        <input id="the_name" type="text" name="your_name" value="stab" placeholder="your name">
+        <br>
+
+        <label for="about">About Yourself</label>
+        <textarea id="about" name="bio" rows="9" cols="40"></textarea>
+        <br>
+
+        <label for="email" id="email_label">Your Email</label>
+        <input id="email" name="email" type="email">
+        <br>
+
+        <label for="pw">Password</label>
+        <input id="pw" name="pass" type="password">
+        <br>
+
+        <p>Gender</p>
+        <label for="gender_m">Male</label>
+        <input id="gender_m" name="gender" value="m" type="radio">
+        <label for="gender_f">Female</label>
+        <input id="gender_f" name="gender" value="f" type="radio">
+        <label for="gender_o">Other</label>
+        <input id="gender_o" name="gender" value="o" type="radio">
+        <br>
+
+        <label for="employment">Employment</label>
+        <select id="employment" name="employment">
+            <option value="1">Full time</option>
+            <option value="2">Part time</option>
+            <option value="3">Remote</option>
+            <option value="4">Student</option>
+            <option value="5">Unemployed</option>
+        </select>
+        <br>
+
+        <input type="submit" value="save">
+    </form>
+</body>
+</html>
+
+<!--http://localhost:63342/learning-pyhton/html/form_complete.html?your_name=&bio=&email=&pass=&gender=m&employment=1-->
+<!--cmd + / = comment-->
+<!--attribute name will be used in Python later on to access values (it'll be a variable in Python)-->
+<!--value (of the option method) will be a variable value in Python;
+all tags have optional attribute "value". It is required to set value for radio and select.-->

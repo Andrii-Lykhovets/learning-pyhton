@@ -12,6 +12,10 @@ xiaomi = Vehicle('Xiaomi', 'Mi 1S', 'e_scooter', 2, 0.25, 25)
 eurocopter = Vehicle('Eurocopter', 'AS350 B3', 'helicopter', 0, None, 287)
 panamera = Vehicle('Porche', 'Panamera', 'car', 4, 348, 315)
 model_s = Vehicle('Tesla', 'Model S', 'car', 4, 1000, 322)
+sikorsky = Vehicle('Sikorsky', 'R-4', 'helicopter', 3, None, 121)
+yamaha = Vehicle('Yamaha', 'GRIZZLY 700 EPS', 'quad_bike', 4, None, 104)
+rossignol = Vehicle('Rossignol', 'EXPERIENCE 86 TI', 'skis', 0, 0.1, 100)
+polaris = Vehicle('Polaris', '650 INDY XCR 128', 'snowmobile', 0, None, 150)
 
 # Define a named tuple for Vehicle
 Vehicle = namedtuple('Vehicle', ['brand', 'model', 'type', 'wheels', 'power', 'speed'])
@@ -26,10 +30,7 @@ def get_slowest_median_fastest(vehicles):
     median_index = median // 2
 
     # Get the median speed
-    if median % 2 == 0:
-        median_vehicle = (sorted_vehicles[median_index - 1] + sorted_vehicles[median_index]) / 2
-    else:
-        median_vehicle = sorted_vehicles[median_index]
+    median_vehicle = sorted_vehicles[median_index]
 
     # Retrieve the slowest, median, and fastest vehicles
     slowest = sorted_vehicles[0]
@@ -57,7 +58,16 @@ vehicles_2 = [
     Vehicle('Porche', 'Panamera', 'car', 4, 348, 315),
     Vehicle('Honda', 'Civic', 'Hatchback', 4, 130, 1000),
 ]
-transport = [bugatti, ford, brompton, bmw, boesch, honda_jet, xiaomi, eurocopter, panamera, model_s]
+
+five_vehicles = [
+    Vehicle('Tesla', 'Model S', 'car', 4, 1000, 322),
+    Vehicle('Sikorsky', 'R-4', 'helicopter', 3, None, 121),
+    Vehicle('Yamaha', 'GRIZZLY 700 EPS', 'quad_bike', 4, None, 104),
+    Vehicle('Rossignol', 'EXPERIENCE 86 TI', 'skis', 0, 0.1, 100),
+    Vehicle('Polaris', '650 INDY XCR 128', 'snowmobile', 0, None, 150),
+]
+
+transport = [bugatti, ford, brompton, bmw, boesch, honda_jet, xiaomi, eurocopter, panamera, model_s, sikorsky, yamaha, rossignol, polaris]
 
 result = get_slowest_median_fastest(vehicles)
 # for vehicle in result:
@@ -70,3 +80,13 @@ results = get_slowest_median_fastest(vehicles_2)
 # for vehicle in results:
 #     print(vehicle)
 print(results)
+
+print('B R E A K   P O I N T')
+
+all_transport_test = get_slowest_median_fastest(transport)
+print(all_transport_test)
+
+print('B R E A K   P O I N T')
+
+five_vehicles_test = get_slowest_median_fastest(five_vehicles)
+print(five_vehicles_test)

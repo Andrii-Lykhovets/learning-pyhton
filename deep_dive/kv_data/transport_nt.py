@@ -100,16 +100,9 @@ def get_slowest_median_fastest(vehicles):
     median = len(sorted_vehicles)
     median_index = median // 2
 
-    # Get the median speed
-    if median % 2 == 0:
-        # median_vehicle = (sorted_vehicles[median_index - 1] + sorted_vehicles[median_index]) / 2
-        median_vehicle = None # these 2 lines are wrong - need to rethink (там 105 удали и решение на экране)
-    else:
-        median_vehicle = sorted_vehicles[median_index]
-
     # Retrieve the slowest, median, and fastest vehicles
     slowest = sorted_vehicles[0]
-    median = median_vehicle
+    median = sorted_vehicles[median_index]
     fastest = sorted_vehicles[-1]
 
     # Return the list of named tuples
@@ -130,9 +123,7 @@ vehicles1 = [
 ]
 
 result = get_slowest_median_fastest(vehicles)
-for vehicle in result:
-    print(vehicle)
+print(result)
 
 results = get_slowest_median_fastest(vehicles1)
-for vehicle in results:
-    print(vehicle)
+print(result)
