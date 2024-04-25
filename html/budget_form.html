@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Budget Form</title>
+</head>
+<body>
+    <form action="completed_form.html">
+        <label for="income">Income</label>
+        <br>
+        <input id="income" type="text" name="your_income" placeholder="your income">
+        <br>
+        <span style="color:grey;">Enter zero if it is an expenditure</span>
+        <br>
+
+        <label for="expenditure">Expenditure</label>
+        <br>
+        <input id="expenditure" name="expenditure" placeholder="your expenditure">
+        <br>
+        <span style="color:grey;">Enter zero if it is an income</span>
+        <br>
+
+        <label for="description">Describe your transaction:</label>
+        <br>
+        <textarea id="description" name="description" placeholder="description" rows="9" cols="40"></textarea>
+        <br>
+
+        <label for="date_time">Date and time of the transaction:</label>
+        <br>
+        <input id="date_time" name="date_time" placeholder="date and time">
+        <br>
+        <span style="color:grey;">YYYY-DD-MM HH:MM</span>
+        <br>
+
+        <label for="company_id">Please enter the id of your company as in database:</label>
+        <input id="company_id" name="company_id" placeholder="company id">
+        <br>
+
+        <input type="submit" value="save transaction">
+
+</body>
+</html>
+
