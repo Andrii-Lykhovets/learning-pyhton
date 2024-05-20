@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Learning Tables</title>
+    <style>
+      td {
+          padding:5px;
+          font-style:italic;
+      }
+      tfoot {
+          font-weight:bolder;
+      }
+      thead {
+          color:orange;
+      }
+    </style>
+</head>
+<body>
+
+<!--    <table style="border:solid black">-->
+    <table bgcolor="blue">
+      <thead>
+        <tr bgcolor="lightgrey">
+          <th>Snack</th>
+          <th>Meal</th>
+          <th>Drink</th>
+        </tr>
+      </thead>
+
+      <tbody bgcolor="lightblue">
+        <tr>
+          <td>Donut</td>
+          <td rowspan="2">Breakfast</td>
+          <td>Coffee</td>
+        </tr>
+        <tr>
+          <td>Sandwich</td>
+          <td>Tea</td>
+        </tr>
+      </tbody>
+
+      <tfoot>
+        <tr bgcolor="lightgrey">
+          <td colspan="3" align="center">Foot</td>
+        </tr>
+      </tfoot>
+    </table>
+
+</body>
+</html>
