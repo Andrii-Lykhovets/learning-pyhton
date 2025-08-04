@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Upskilling Training Schedule</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0078D4;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📅 Digital Upskilling Training Schedule</h1>
+
+    <table id="trainingTable">
+        <thead>
+            <tr>
+                <th>Training Title</th>
+                <th>Owner</th>
+                <th>Audience</th>
+                <th>Scope</th>
+                <th>Topic</th>
+                <th>Type</th>
+                <th>Users Impacted</th>
+                <th>iLearn</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Delivered By</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Data will be inserted dynamically here -->
+        </tbody>
+    </table>
+
+    <script>
+        // Function to fetch data from SharePoint
+        async function fetchSharePointData() {
+            const response = await fetch("https://YOUR_SHAREPOINT_SITE/_api/web/lists/getbytitle('TrainingList')/items", {
+                headers: {
+                    "Accept": "application/json;odata=verbose"
+                }
+            });
+
+            const data = await response.json();
+            const trainingData = data.d.results;
+
+            const tableBody = document.querySelector("#trainingTable tbody");
+
+            trainingData.forEach(training => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${training.Title || 'N/A'}</td>
+                    <td>${training.Owner || 'N/A'}</td>
+                    <td>${training.Audience || 'N/A'}</td>
+                    <td>${training.Scope || 'N/A'}</td>
+                    <td>${training.Topic || 'N/A'}</td>
+                    <td>${training.Type || 'N/A'}</td>
+                    <td>${training.UsersImpacted || 'N/A'}</td>
+                    <td>${training.iLearn ? 'Yes' : 'No'}</td>
+                    <td>${training.Date || 'N/A'}</td>
+                    <td>${training.Status || 'Planned'}</td>
+                    <td>${training.DeliveredBy || '-'}</td>
+                    <td>${training.Comment || '-'}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        fetchSharePointData();
+    </script>
+
+</body>
+</html>
